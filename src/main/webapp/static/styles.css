@@ -1,0 +1,14 @@
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
+
+.card{
+	max-width: 500px;
+	margin-top: 25px;
+	
+}
+
+
