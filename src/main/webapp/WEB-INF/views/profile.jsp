@@ -32,8 +32,9 @@ pageEncoding="UTF-8"%>
 		      Your Organizations
 		    </button>
 		    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-		    <c:forEach var="org" items="${orgs}">
-		      <a class="dropdown-item" id="${org.id}" href="organization?id=${org.id}">${org.orgName}</a>
+		    <c:forEach var="org1" items="${orgs}">
+		      <a class="dropdown-item" id="${org1.id}" href="organization?id=${org1.id}"> ${org1.orgName}</a>
+		      <!-- organization?id=${org.id} -->
       		</c:forEach>
    			 </div>
   		</div>

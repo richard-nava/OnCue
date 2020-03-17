@@ -10,6 +10,8 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 <title>Add a ${org.orgName} Class</title>
 </head>
 <body>
@@ -22,10 +24,10 @@ pageEncoding="UTF-8"%>
 	<div class="card center">
 			<div class="card-body">
 					<div>
-						<h2>Add a Class to ${org.orgName}'s Roster </h2>						
+						<h2>Add a Class to ${org.orgName}'s Roster </h2>					
 					</div>
 				${error}
-				<form:form action="create-class" modelAttribute="org" method="post">
+				<form:form action="create-class" modelAttribute="newClass" method="post">
 				    <form:input type="hidden" path="class_id"/>
 					<div class="form-group">
 				   	 <label for="class_name">Class Name</label>

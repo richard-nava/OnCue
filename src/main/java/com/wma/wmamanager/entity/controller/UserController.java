@@ -1,5 +1,6 @@
 package com.wma.wmamanager.entity.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import com.wma.wmamanager.entity.Class;
 
 
 @Controller
-@SessionAttributes ({"loggedInUser"})
+@SessionAttributes ({"loggedInUser","org","thisclass"})
 public class UserController {
 	
 	
@@ -41,8 +42,9 @@ public class UserController {
 	
 	// ************** General Mapping **************
 	@GetMapping("profile")
-	String profile(@SessionAttribute("loggedInUser") User user, Model model) {
-		model.addAttribute("orgs",repo.findById(user.getId()).get().getOrganizations());
+	String profile(@SessionAttribute("loggedInUser") User user, @SessionAttribute("org") Organization org,  Model model) {
+		List<Organization> stuff = orgRepo.getByUser(user.getId());
+		model.addAttribute("orgs", stuff);
 		return "profile";
 	}
 	
@@ -145,8 +147,17 @@ public class UserController {
 	@GetMapping("organization")
 	String organization(@RequestParam Long id, Model model) {
 		model.addAttribute("org", orgRepo.findById(id).get());
+		model.addAttribute("classes", classRepo.getByOrg(orgRepo.findById(id).get().getId()));
 		return "organization";
 	}
+	
+	@GetMapping("thisOrg")
+	String thisOrg(@SessionAttribute("org") Organization org, Model model) {
+		List<Class> stuff=  classRepo.getByOrg(org.getId());
+		model.addAttribute("classes", stuff);
+		return "organization";
+	}
+	
 	
 	@GetMapping("add-class")
 	String addClass(Model model) {
@@ -183,7 +194,7 @@ public class UserController {
 	// ************** Classes Management **************
 	
 	@PostMapping("create-class")
-	String createClass(@ModelAttribute Class newClass, @ModelAttribute Organization org,
+	String createClass(@ModelAttribute Class newClass, @SessionAttribute("org") Organization org,
 							RedirectAttributes redirect) {
 		
 		Optional<Class> newCl = classRepo.getByName(newClass.getClass_name(),org.getId());
@@ -192,24 +203,25 @@ public class UserController {
 			redirect.addFlashAttribute("error", "Class already exists.");
 			return "redirect:/organization";
 		}
+		newClass.setOrg(org);
 		newClass.setActive(true);
 		classRepo.save(newClass);
 		redirect.addFlashAttribute("msg", "Class registration Successful!");	
 		
-		return "redirect:/organization";
+		return "redirect:/thisOrg";
 	}
 	
-	@GetMapping("class-profile")
-	String classProfile(@RequestParam Long id, Model model) {
-		model.addAttribute("class", classRepo.findById(id));
-		return "class-profile";
+	@GetMapping("class-page")
+	String classPage(@RequestParam Long id, @SessionAttribute("org") Organization org, Model model) {
+		model.addAttribute("thisclass", classRepo.findById(id).get());
+		
+		return "class-page";
 	}
 	
 	@GetMapping("view-classStudents")
 	String studentsInClass(@RequestParam Long id, Model model) {
-		return "class-profile";
+		return "class-page";
 	}
-	
 	
 	
 }
