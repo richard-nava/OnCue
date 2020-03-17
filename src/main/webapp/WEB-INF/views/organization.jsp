@@ -4,6 +4,7 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +15,20 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 
+	<jsp:include page="header.jsp"></jsp:include>
+
 	<div class="container">
-		<h3>${org.orgName}'s Page</h3>
+		<h3>${org.orgName} Manager Page</h3>
+		<h4>${msg}</h4>
+	</div>
+	
+	<div class="container">
+		What would you like to do? 
+		<br>
+  		<a class="btn btn-primary" href="new-classes" role="button">Classes</a>
+  		<a class="btn btn-primary" href="add-class" role="button">New Class</a>
+  		<a class="btn btn-primary" href="memberships" role="button">Memberships</a>
+  		<a class="btn btn-primary" href="organization-settings" role="button">${org.orgName} Settings</a>
 	</div>
 
 

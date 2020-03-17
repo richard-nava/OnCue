@@ -31,11 +31,6 @@ pageEncoding="UTF-8"%>
 				   	 <label for="orgName">Organization Name</label>
 				  	  <form:input type="text" path="orgName" class="form-control" id="orgName" aria-describedby="emailHelp"/>  
 				    </div>
-				    <div class="form-group">
-				 	   <label for="street">Street Address</label>
-				 	   <form:input type="text" path="street" class="form-control" id="street" aria-describedby="emailHelp"/>
-				    </div>
-		
 				  <button type="submit" class="btn btn-primary">Submit</button>
 				</form:form>
 			</div>

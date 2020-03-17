@@ -17,18 +17,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wma.wmamanager.entity.Organization;
 import com.wma.wmamanager.entity.User;
+import com.wma.wmamanager.repository.ClassRepository;
 import com.wma.wmamanager.repository.OrgRepository;
 import com.wma.wmamanager.repository.UserRepository;
+import com.wma.wmamanager.entity.Class;
+
 
 @Controller
 @SessionAttributes ({"loggedInUser"})
 public class UserController {
 	
+	
+	// ************** Repositories **************
 	@Autowired
 	UserRepository repo;
 	
 	@Autowired
 	OrgRepository orgRepo;
+	
+	@Autowired
+	ClassRepository classRepo;
 	
 	
 	// ************** General Mapping **************
@@ -57,13 +65,17 @@ public class UserController {
 	@PostMapping("signup")
 	String register(@ModelAttribute User user,
 						RedirectAttributes redirect){
-		
+
 		Optional<User> newuser = repo.getByEmail(user.getEmail());
 		if(newuser.isPresent()) {
 			
 			redirect.addFlashAttribute("error", "User already exists.");
 			return "redirect:/signup";
 		}
+		user.setRole("Admin");
+		System.out.println(user.getFirstName()+"**********"+user.getEmail());
+
+
 		repo.save(user);
 		redirect.addFlashAttribute("msg", "Registration Successful!");
 		
@@ -135,6 +147,70 @@ public class UserController {
 		model.addAttribute("org", orgRepo.findById(id).get());
 		return "organization";
 	}
+	
+	@GetMapping("add-class")
+	String addClass(Model model) {
+		model.addAttribute("newClass", new Class());
+		return "add-class";
+	}
+	
+	@GetMapping("view-students")
+	String viewStudents(){
+		return "view-students";
+		
+	}
+	
+	@GetMapping("add-student")
+	String addStudent(Model model) {
+		model.addAttribute("student", new User());
+		return"add-student";
+	}
+	
+	@PostMapping("addstudent")
+	String addThisStudent(@ModelAttribute User student, RedirectAttributes redirect) {
+		Optional<User> newStudent = repo.getByEmail(student.getEmail());
+		if(newStudent.isPresent()) {
+			
+			redirect.addFlashAttribute("error", "User already exists.");
+			return "redirect:/signup";
+		}
+		student.setRole("Admin");
+		repo.save(student);
+		redirect.addFlashAttribute("msg", "Registration Successful!");		
+		return"organization";
+	}
+	
+	// ************** Classes Management **************
+	
+	@PostMapping("create-class")
+	String createClass(@ModelAttribute Class newClass, @ModelAttribute Organization org,
+							RedirectAttributes redirect) {
+		
+		Optional<Class> newCl = classRepo.getByName(newClass.getClass_name(),org.getId());
+		if(newCl.isPresent()) {
+			
+			redirect.addFlashAttribute("error", "Class already exists.");
+			return "redirect:/organization";
+		}
+		newClass.setActive(true);
+		classRepo.save(newClass);
+		redirect.addFlashAttribute("msg", "Class registration Successful!");	
+		
+		return "redirect:/organization";
+	}
+	
+	@GetMapping("class-profile")
+	String classProfile(@RequestParam Long id, Model model) {
+		model.addAttribute("class", classRepo.findById(id));
+		return "class-profile";
+	}
+	
+	@GetMapping("view-classStudents")
+	String studentsInClass(@RequestParam Long id, Model model) {
+		return "class-profile";
+	}
+	
+	
 	
 }
 

@@ -12,6 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,6 +31,11 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)	
 	private List<Organization> organizations;
+	
+	@ManyToMany
+	@JoinTable(name="classesAssociated",joinColumns=@JoinColumn(name="student_id"),
+	inverseJoinColumns = @JoinColumn(name="class_id"))
+	private List<Class> classesAssociated;
 	
 	@Column(name="firstName")
 	private String firstName;
@@ -53,12 +61,8 @@ public class User implements Serializable {
 	@Column(name="image")
 	private String image;
 	
-	private String street;
-	private String state;
-	private String city;
+	@Column(name="role")
 	private String role;
-	
-	
 	
 	
 	// ********** Constructor **********
@@ -73,6 +77,15 @@ public class User implements Serializable {
 	}
 	
 	
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 
 	public List<Organization> getOrganizations() {
 		return organizations;
@@ -129,30 +142,6 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getStreet() {
-		return street;
-	}
-	public void setStreet(String street) {
-		this.street = street;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
 	public String getImage() {
 		return image;
 	}
@@ -161,5 +150,15 @@ public class User implements Serializable {
 	}
 
 
+	public List<Class> getClassesAssociated() {
+		return classesAssociated;
+	}
+
+
+	public void setClassesAssociated(List<Class> classesAssociated) {
+		this.classesAssociated = classesAssociated;
+	}
+
+	
 
 }
