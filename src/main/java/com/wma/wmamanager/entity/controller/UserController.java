@@ -172,22 +172,24 @@ public class UserController {
 	}
 	
 	@GetMapping("add-student")
-	String addStudent(Model model) {
+	String addStudent(@SessionAttribute("org") Organization org, Model model) {
 		model.addAttribute("student", new User());
+		model.addAttribute("classes", classRepo.getByOrg(org.getId()));
 		return"add-student";
 	}
 	
 	@PostMapping("addstudent")
-	String addThisStudent(@ModelAttribute User student, RedirectAttributes redirect) {
+	String addThisStudent(@ModelAttribute User student, @SessionAttribute("org") Organization org, @SessionAttribute("thisclass") Class aClass, RedirectAttributes redirect) {
 		Optional<User> newStudent = repo.getByEmail(student.getEmail());
+		
 		if(newStudent.isPresent()) {
 			
-			redirect.addFlashAttribute("error", "User already exists.");
+			redirect.addFlashAttribute("error", "Student already exists.");
 			return "redirect:/signup";
 		}
-		student.setRole("Admin");
+		student.setRole("Student");
 		repo.save(student);
-		redirect.addFlashAttribute("msg", "Registration Successful!");		
+		redirect.addFlashAttribute("msg", "Student Registration Successful!");		
 		return"organization";
 	}
 	

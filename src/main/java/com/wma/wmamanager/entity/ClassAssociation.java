@@ -16,7 +16,7 @@ public class ClassAssociation {
 	//@EmbeddedId
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long id;
 	
 	@ManyToOne

@@ -16,6 +16,10 @@ import javax.persistence.Table;
 @Embeddable
 public class ClassAssociationKey implements Serializable {
 
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	Long id;
 	
 	@Column(name="student_id")
 	Long studentId;

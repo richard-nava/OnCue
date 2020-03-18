@@ -159,6 +159,12 @@ public class User implements Serializable {
 		this.classesAssociated = classesAssociated;
 	}
 
+
+	@Override
+	public String toString() {
+		return firstName + " " + lastName + " - Pin: " + pin + " - Email: " + email;
+	}
+
 	
 
 }

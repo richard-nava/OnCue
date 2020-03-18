@@ -17,9 +17,19 @@ pageEncoding="UTF-8"%>
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
-	
+	<br>
 	<div class="container">
 		<h3>${thisclass.class_name} Class Page</h3>
+		<br>
+		<h5>Description:</h5>
+		<h6>${thisclass.description}</h6>
+	</div>
+	<br><br><br>
+	<div class="container">
+		<h4>Roster:</h4>
+		<c:forEach var="stud" items="${thisclass.students}">
+		<p>${stud.toString()}
+		</c:forEach>
 	</div>
 	
 

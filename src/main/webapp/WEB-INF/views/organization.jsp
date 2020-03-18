@@ -39,7 +39,18 @@ pageEncoding="UTF-8"%>
       		
    			 </div>
   		</div>
-  		<a class="btn btn-primary" href="memberships" role="button">Memberships</a>
+  		 <div class="btn-group" role="group">
+  		
+  		<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		      Students
+		    </button>
+		    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		    <a class="dropdown-item" href="view-students" role="button">View All</a>
+      		<a class="dropdown-item" href="add-student" role="button">Add Student</a>
+    
+   			 </div>
+   			 </div>
+  		<a class="btn btn-primary disabled" href="memberships" role="button">Memberships</a>	
   		<a class="btn btn-primary" href="organization-settings" role="button">${org.orgName} Settings</a>
 	</div>
 
