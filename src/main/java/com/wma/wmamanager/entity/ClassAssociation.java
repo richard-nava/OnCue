@@ -9,26 +9,50 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="classesAssociated")
 public class ClassAssociation {
 	
-	//@EmbeddedId
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long id;
 	
 	@ManyToOne
-	@MapsId("student_id")
-	@JoinColumn(name = "student_id")
+	@MapsId("user_id")
+	@JoinColumn(name = "user_id")
 	User user;
 
 	@ManyToOne
 	@MapsId("class_id")
 	@JoinColumn(name = "class_id")
 	Class classTaken;
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Class getClassTaken() {
+		return classTaken;
+	}
+
+	public void setClassTaken(Class classTaken) {
+		this.classTaken = classTaken;
+	}
 	
 	
 }

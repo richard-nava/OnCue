@@ -18,10 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wma.wmamanager.entity.Organization;
 import com.wma.wmamanager.entity.User;
+import com.wma.wmamanager.repository.ClassAssociationRepo;
 import com.wma.wmamanager.repository.ClassRepository;
 import com.wma.wmamanager.repository.OrgRepository;
 import com.wma.wmamanager.repository.UserRepository;
 import com.wma.wmamanager.entity.Class;
+import com.wma.wmamanager.entity.ClassAssociation;
 
 
 @Controller
@@ -39,6 +41,7 @@ public class UserController {
 	@Autowired
 	ClassRepository classRepo;
 	
+	ClassAssociationRepo assoRepo;
 	
 	// ************** General Mapping **************
 	@GetMapping("profile")
@@ -179,7 +182,7 @@ public class UserController {
 	}
 	
 	@PostMapping("addstudent")
-	String addThisStudent(@ModelAttribute User student, @SessionAttribute("org") Organization org, @SessionAttribute("thisclass") Class aClass, RedirectAttributes redirect) {
+	String addThisStudent(@ModelAttribute User student, @SessionAttribute("org") Organization org, RedirectAttributes redirect) {
 		Optional<User> newStudent = repo.getByEmail(student.getEmail());
 		
 		if(newStudent.isPresent()) {
@@ -189,8 +192,18 @@ public class UserController {
 		}
 		student.setRole("Student");
 		repo.save(student);
+		ClassAssociation i = new ClassAssociation();
+		
+		
+//		for(Class var:student.getClassesAssociated()) {
+//			i.setUser(student);
+//			i.setClassTaken(var);
+//			assoRepo.save(i);
+//		}
+//		
+//		assoRepo.save(i);
 		redirect.addFlashAttribute("msg", "Student Registration Successful!");		
-		return"organization";
+		return "organization";
 	}
 	
 	// ************** Classes Management **************

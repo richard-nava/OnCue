@@ -33,7 +33,7 @@ public class User implements Serializable {
 	private List<Organization> organizations;
 	
 	@ManyToMany
-	@JoinTable(name="classesAssociated",joinColumns=@JoinColumn(name="student_id"),
+	@JoinTable(name="classesAssociated",joinColumns=@JoinColumn(name="user_id"),
 	inverseJoinColumns = @JoinColumn(name="class_id"))
 	private List<Class> classesAssociated;
 	

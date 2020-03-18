@@ -39,7 +39,7 @@ public class Class implements Serializable{
 	@ManyToMany(mappedBy = "classesAssociated")
 	private List<User> students;
 	
-	// *********** Constructors *********** 
+	// *********** Construcors *********** 
 	public Class() {}
 
 	// *********** Getters/Setters *********** 
