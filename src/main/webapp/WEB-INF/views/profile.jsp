@@ -20,10 +20,10 @@ pageEncoding="UTF-8"%>
 	
 	<div class="container">
 		<h2>Welcome, ${loggedInUser.firstName}!</h2>
+		${msg}
 	</div>
 	
 	<br><br>
-	
 	<div class="container">
 		<h3>What would you like to do?</h3>
 		<br>

@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -36,6 +37,9 @@ public class User implements Serializable {
 	@JoinTable(name="classesAssociated",joinColumns=@JoinColumn(name="user_id"),
 	inverseJoinColumns = @JoinColumn(name="class_id"))
 	private List<Class> classesAssociated;
+	
+	@OneToOne(mappedBy="user")
+	private Address address;
 	
 	@Column(name="firstName")
 	private String firstName;
@@ -157,6 +161,16 @@ public class User implements Serializable {
 
 	public void setClassesAssociated(List<Class> classesAssociated) {
 		this.classesAssociated = classesAssociated;
+	}
+	
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 

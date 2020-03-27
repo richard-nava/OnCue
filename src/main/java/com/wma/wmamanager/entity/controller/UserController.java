@@ -1,7 +1,11 @@
 package com.wma.wmamanager.entity.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,31 +21,47 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wma.wmamanager.entity.Organization;
+import com.wma.wmamanager.entity.SignInTime;
 import com.wma.wmamanager.entity.User;
+import com.wma.wmamanager.repository.AddressRepository;
 import com.wma.wmamanager.repository.ClassAssociationRepo;
 import com.wma.wmamanager.repository.ClassRepository;
 import com.wma.wmamanager.repository.OrgRepository;
+import com.wma.wmamanager.repository.TimestampRepository;
 import com.wma.wmamanager.repository.UserRepository;
+import com.wma.wmamanager.Services.OrgService;
+import com.wma.wmamanager.entity.Address;
 import com.wma.wmamanager.entity.Class;
 import com.wma.wmamanager.entity.ClassAssociation;
 
 
 @Controller
-@SessionAttributes ({"loggedInUser","org","thisclass"})
+@SessionAttributes ({"loggedInUser","org","thisclass","stud"})
 public class UserController {
 	
 	
 	// ************** Repositories **************
 	@Autowired
-	UserRepository repo;
+	private UserRepository repo;
 	
 	@Autowired
-	OrgRepository orgRepo;
+	private OrgRepository orgRepo;
 	
 	@Autowired
-	ClassRepository classRepo;
+	private ClassRepository classRepo;
 	
-	ClassAssociationRepo assoRepo;
+	@Autowired
+	private ClassAssociationRepo assoRepo;
+	
+	@Autowired
+	private TimestampRepository timeRepo;
+	
+	@Autowired
+	private OrgService orgService;
+	
+	@Autowired
+	private AddressRepository adRepo;
+	
 	
 	// ************** General Mapping **************
 	@GetMapping("profile")
@@ -101,7 +121,6 @@ public class UserController {
 			
 		Optional<User> usr = repo.login(email,password);
 			if(usr.isPresent()) {
-				model.addAttribute("msg", "Welcome to your profile, ");
 				model.addAttribute("loggedInUser", usr.get());
 				model.addAttribute("orgs", usr.get().getOrganizations());
 
@@ -169,7 +188,8 @@ public class UserController {
 	}
 	
 	@GetMapping("view-students")
-	String viewStudents(){
+	String viewStudents(Model model, @SessionAttribute("org") Organization org){
+		model.addAttribute("students", orgService.getOrgUsers(org.getId()));
 		return "view-students";
 		
 	}
@@ -193,15 +213,6 @@ public class UserController {
 		student.setRole("Student");
 		repo.save(student);
 		ClassAssociation i = new ClassAssociation();
-		
-		
-//		for(Class var:student.getClassesAssociated()) {
-//			i.setUser(student);
-//			i.setClassTaken(var);
-//			assoRepo.save(i);
-//		}
-//		
-//		assoRepo.save(i);
 		redirect.addFlashAttribute("msg", "Student Registration Successful!");		
 		return "organization";
 	}
@@ -238,7 +249,121 @@ public class UserController {
 		return "class-page";
 	}
 	
+	// ************** Sign-In Management **************
 	
+	@GetMapping("class-signin")
+	String classSignIn(Model model, @RequestParam Long id){
+		model.addAttribute("thisclass", classRepo.findById(id).get());
+		return "class-signin";
+	}
+	
+	@GetMapping("org-signin")
+	String orgSignIn(Model model){
+		model.addAttribute("student", new SignInTime());
+		return "org-signin";
+		
+	}
+	
+	@PostMapping("orgSignIn")
+	String orgSignForm(Model model,@ModelAttribute("student") SignInTime time, RedirectAttributes redirect) {
+		
+		Optional<User> focus = repo.pinSignIn(time.getPin());
+		if(!focus.isPresent()) {
+			model.addAttribute("msg","Invalid PIN");
+			return "redirect:/org-signin";
+		}
+		
+		List<ClassAssociation> focusClasses = assoRepo.findByStudId(focus.get().getId());
+		List<ClassAssociation> availableClasses = focusClasses
+				.stream().filter(association -> {
+					return (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY) && association.getClassTaken().getMonday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.TUESDAY) && association.getClassTaken().getTuesday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.WEDNESDAY) && association.getClassTaken().getWednesday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.THURSDAY) && association.getClassTaken().getThursday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.FRIDAY) && association.getClassTaken().getFriday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY) && association.getClassTaken().getSaturday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.WEDNESDAY) && association.getClassTaken().getSunday());
+				}).collect(Collectors.toList());
+		
+		if(availableClasses.size()==0) {
+			redirect.addFlashAttribute("error", "Sorry, " + focus.get().getFirstName() + ". You have no available classes today.");
+			return "redirect:/org-signin";
+		}
+		
+		if(availableClasses.size()>1) {
+			return "org-signin-multi";
+		}
+		
+		
+		
+		for(ClassAssociation i:availableClasses) {
+			time.setTimestamp(LocalDateTime.now());
+			time.setClassAssoc(i);
+			System.out.println(i.getId());
+			timeRepo.save(time);
+		}
+		redirect.addFlashAttribute("msg", "You have successfully signed in!");
+		return "redirect:/org-signin";
+		
+	}
+	
+	// ************** Student Profile Management **************
+
+	
+	@GetMapping("student-file")
+	String studentFile(@RequestParam Long id, Model model) {
+		model.addAttribute("stud", repo.findById(id).get());
+		model.addAttribute("times", timeRepo.getSignInTimes(repo.findById(id).get().getPin()));
+		model.addAttribute("student", new User());
+		model.addAttribute("address", new Address());
+		return "student-file";
+	}
+	
+	@PostMapping("editStud")
+	String editStud(@ModelAttribute("student") User user, @SessionAttribute("stud")User main, RedirectAttributes redirect, Model model) {
+		
+		Optional<User> latest = repo.findById(main.getId());
+			if(latest.isPresent()){
+				latest.get().setFirstName(user.getFirstName());
+				latest.get().setLastName(user.getLastName());
+				latest.get().setPin(user.getPin());
+				latest.get().setEmail(user.getEmail());
+				repo.save(latest.get());
+				model.addAttribute("stud", latest.get());
+				redirect.addAttribute("id",latest.get().getId());
+			}
+		return "redirect:/student-file";
+	}
+	
+	@PostMapping("editStudAddress")
+	String editStudAddress(@ModelAttribute("address") Address ad, @SessionAttribute("stud")User main, RedirectAttributes redirect, Model model) {
+		User focus = repo.findById(main.getId()).get();
+		ad.setUser(focus);
+		adRepo.save(ad);
+		model.addAttribute("stud", focus);
+		redirect.addAttribute("id",focus.getId());
+		return "redirect:/student-file";
+	}
+	
+	@GetMapping("deleteStudent")
+	String deleteStudent(Model model, @SessionAttribute("stud") User s) {
+		repo.delete(s);
+		model.addAttribute("msg", "Student successfully deleted.");
+		return "profile";
+	}
+	
+	// ************** Profile Management **************
+	
+	@GetMapping("profile-settings")
+	String profileSettings(Model model) {
+		model.addAttribute("address", new Address());
+		return "profile-settings";
+	}
+	
+	@PostMapping("orgEdit")
+	String orgEdit(RedirectAttributes redirect) {
+		return "redirect:/profile-settings";
+	}
 }
 
 	

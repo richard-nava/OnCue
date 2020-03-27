@@ -1,18 +1,31 @@
 package com.wma.wmamanager.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="address")
 public class Address {
 	
 	@Id
-	@Column
+	@Column(name="address_id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long address_id; 
+	
+	@OneToOne
+	@JoinColumn(name="user_id", referencedColumnName = "user_id")
+	private User user;
+	
+	@OneToOne
+	@JoinColumn(name="org_id", referencedColumnName = "id")
+	private Organization org;
 	
 	@Column
 	private String street;
@@ -29,12 +42,30 @@ public class Address {
 	
 	
 	// ************ Getters/Setters ************
-	public Long getAddress_Id() {
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public Long getAddress_id() {
 		return address_id;
 	}
 
-	public void setAddress_Id(Long address_id) {
+	public void setAddress_id(Long address_id) {
 		this.address_id = address_id;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Organization getOrg() {
+		return org;
+	}
+
+	public void setOrg(Organization org) {
+		this.org = org;
 	}
 
 	public String getStreet() {
@@ -68,6 +99,7 @@ public class Address {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+	
 	
 	
 	

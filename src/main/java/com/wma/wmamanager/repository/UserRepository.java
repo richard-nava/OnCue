@@ -21,5 +21,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("FROM User WHERE firstName=?1 OR lastName=?1 OR email=?1")
 	List<User> searchByName(String name);
 	
+	@Query("FROM User WHERE pin=?1")
+	Optional<User> pinSignIn(int pin);
+	
+	@Query("FROM User WHERE role=Student")
+	List<User> getStudents();
+	
 	
 }

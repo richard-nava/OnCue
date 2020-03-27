@@ -50,8 +50,9 @@ pageEncoding="UTF-8"%>
     
    			 </div>
    			 </div>
-  		<a class="btn btn-primary disabled" href="memberships" role="button">Memberships</a>	
-  		<a class="btn btn-primary" href="organization-settings" role="button">${org.orgName} Settings</a>
+	  		<a class="btn btn-primary disabled" href="memberships" role="button">Memberships</a>	
+	  		<a class="btn btn-primary" href="organization-settings" role="button">${org.orgName} Settings</a>
+	  		<a class="btn btn-primary" href="org-signin" role="button">Sign-In Page </a>
 	</div>
 
 
