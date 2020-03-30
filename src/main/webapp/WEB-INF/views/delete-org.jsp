@@ -9,59 +9,31 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="static/styles.css" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<title>${loggedInUser.firstName}'s Profile</title>
+
+<title>Delete ${org.orgName}</title>
 </head>
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
-	
-	
-	
-	<%-- <div class="container">
-		<h2>Welcome, ${loggedInUser.firstName}!</h2>
-		${msg}
-	</div> --%>
-	<br>
-${msg}
+
 	<div class="container">
-	<h4>Your Organizations</h4>
-	</div>
-	<div class="container" style="padding-top:10px;">
-		<div class="card-deck">
-			<c:forEach var="o" items="${orgs}">
+		<div class="card card-signup center" style="width: 25rem;">
+			<div class="card-body">
+				<h5 class="card-title">Are you sure you want to delete ${org.orgName}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">This will permanently delete all associated classes and students.</h6>
+				<hr>
+				<a href="deleteOrgConfirm" class="btn btn-danger">Delete ${org.orgName}</a> 
 				
-					<div class="card border-dark" style="width: 18rem;">
-						<div class="card-body">
-							<h5 class="card-title">${o.orgName}</h5>
-							<a href="organization?id=${o.id}" class="btn btn-outline-primary">View</a>
-						</div>
-				</div>
-			</c:forEach>
+				<a href="organization?id=${org.id}" class="btn btn-info">On second thought...</a>
+				
+			</div>
 		</div>
 	</div>
-	<br>
-	<div class="container">	
-  		<a class="btn btn-primary" href="profile-settings" role="button">Settings</a>
-	</div>
 
-
-
-
-
-
-
-	<!-- JS Scripts -->
-<script src="content/js/jquery.min.js"></script>
-<script src="content/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.dropdown-toggle').dropdown();
-    });
-</script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
 </body>
 </html>

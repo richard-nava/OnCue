@@ -9,49 +9,30 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="static/styles.css" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<title>${loggedInUser.firstName}'s Profile</title>
+
+<title>Add ${stud.firstName} to Class</title>
 </head>
 <body>
 
-	<jsp:include page="header.jsp"></jsp:include>
+
+	<jsp:include page="header.jsp"/>
+
+	<h3>Add ${stud.firstName} to a Class</h3>
 	
+	<h5>${msg} ${error}</h5>
 	
+	<form:form action="confirmAddClass" modelAttribute="student" method="post">
+	<c:forEach var="i" items="${classes}">
+		<form:checkbox path="classesAssociated" value="${i.class_id}"/>${i.class_name}
+	</c:forEach>
+	<button type="submit" class="btn btn-primary">Add to Class</button>
 	
-	<%-- <div class="container">
-		<h2>Welcome, ${loggedInUser.firstName}!</h2>
-		${msg}
-	</div> --%>
-	<br>
-${msg}
-	<div class="container">
-	<h4>Your Organizations</h4>
-	</div>
-	<div class="container" style="padding-top:10px;">
-		<div class="card-deck">
-			<c:forEach var="o" items="${orgs}">
-				
-					<div class="card border-dark" style="width: 18rem;">
-						<div class="card-body">
-							<h5 class="card-title">${o.orgName}</h5>
-							<a href="organization?id=${o.id}" class="btn btn-outline-primary">View</a>
-						</div>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
-	<br>
-	<div class="container">	
-  		<a class="btn btn-primary" href="profile-settings" role="button">Settings</a>
-	</div>
+	</form:form>
 
 
 
-
-
-
-
-	<!-- JS Scripts -->
 <script src="content/js/jquery.min.js"></script>
 <script src="content/js/bootstrap.min.js"></script>
 <script>
@@ -62,6 +43,6 @@ ${msg}
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+<script src="static/js/calendar.js"></script>
 </body>
 </html>

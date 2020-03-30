@@ -25,12 +25,12 @@ public class ClassAssociation {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@MapsId("user_id")
 	@JoinColumn(name = "user_id")
 	User user;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@MapsId("class_id")
 	@JoinColumn(name = "class_id")
 	Class classTaken;

@@ -10,7 +10,6 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
 <title>${org.orgName}</title>
 </head>
 <body>
@@ -22,7 +21,7 @@ pageEncoding="UTF-8"%>
 		<h4>${msg}</h4>
 	</div>
 	
-	<div class="container">
+	<%-- <div class="container">
 		What would you like to do? 
 		<br>
   		<div class="btn-group" role="group">
@@ -47,19 +46,113 @@ pageEncoding="UTF-8"%>
 		    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 		    <a class="dropdown-item" href="view-students" role="button">View All</a>
       		<a class="dropdown-item" href="add-student" role="button">Add Student</a>
-    
    			 </div>
    			 </div>
 	  		<a class="btn btn-primary disabled" href="memberships" role="button">Memberships</a>	
 	  		<a class="btn btn-primary" href="organization-settings" role="button">${org.orgName} Settings</a>
 	  		<a class="btn btn-primary" href="org-signin" role="button">Sign-In Page </a>
-	</div>
+	  		<a class="btn btn-danger" href="delete-org?id=${org.id}" role="button">Delete ${org.orgName}</a>
+	</div> --%>
+	
+	<br>
+
+	<div class="container justify-content-center">
+		<div class="row" style="padding-top: 10px;">
+
+			<div class="card card-profile col-2 border-dark text-center"
+				style="width: 5rem;">
+
+				<img class="center-image"
+					src="https://img.icons8.com/ios/50/000000/class.png" alt="Classes"
+					style="padding-top: 10px;">
+				<div class="card-body">
+					<h5 class="card-title">Classes</h5>
+					<!-- 
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p> -->
+					<a id="btnGroupDrop1" type="button"
+						class="btn stretched-link dropdown-toggle" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"></a>
+					<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+						<c:forEach var="var" items="${classes}">
+							<a class="dropdown-item" id="${var.class_id}"
+								href="class-page?id=${var.class_id}">${var.class_name}</a>
+							<!-- organization?id=${org.id} -->
+						</c:forEach>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="add-class" role="button">New
+							Class</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="card card-profile col-2 border-dark text-center"
+				style="width: 5rem;">
+
+				<img class="center-image"
+					src="https://img.icons8.com/material/48/000000/user-menu-male--v1.png"
+					alt="Students" style="padding-top: 10px;">
+				<div class="card-body">
+					<h5 class="card-title">Students</h5>
+					<!-- 
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p> -->
+					<a id="btnGroupDrop1" type="button"
+						class="btn stretched-link dropdown-toggle" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"></a>
+					<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+						<a class="dropdown-item" href="view-students" role="button">View
+							All</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="add-student" role="button">Add
+							Student</a>
+
+					</div>
+				</div>
+			</div>
+
+			</div>
+				<div class="row" style="padding-top: 10px;">
+
+					<div class="card card-profile col-2 border-dark text-center"
+						style="width: 10rem;">
+						<img class="center-image"
+							src="https://img.icons8.com/dotty/60/000000/test-failed.png"style="padding-top: 15px;"
+							alt="Sign In Page">
+						<div class="card-body">
+							<h5 class="card-title">Sign-In Page</h5>
+							<!-- 
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p> -->
+							<a href="org-signin" class="stretched-link"></a>
+						</div>
+					</div>
+
+					<div class="card card-profile col-2 border-dark text-center"
+						style="width: 10rem;">
+						<img class="center-image"
+							src="https://img.icons8.com/material-outlined/48/000000/vertical-settings-mixer.png" style="padding-top: 15px;"
+							alt="Organization Settings">
+						<div class="card-body">
+							<h5 class="card-title">${org.orgName} Settings</h5>
+							<!-- 
+					<p class="card-text">Some quick example text to build on the
+						card title and make up the bulk of the card's content.</p> -->
+							<a href="organization-settings" class="stretched-link"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		
 
 
 
 
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-<script src="content/js/jquery.min.js"></script>
+			<script src="content/js/jquery.min.js"></script>
 <script src="content/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {

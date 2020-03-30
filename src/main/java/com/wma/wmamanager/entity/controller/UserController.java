@@ -3,6 +3,8 @@ package com.wma.wmamanager.entity.controller;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -217,6 +219,21 @@ public class UserController {
 		return "organization";
 	}
 	
+	@GetMapping("delete-org")
+	String deleteOrg() {
+		return "delete-org";
+	}
+	
+	@GetMapping("deleteOrgConfirm")
+	String deleteOrgConfirm(Model model, @SessionAttribute("org") Organization s, RedirectAttributes redirect) {
+		System.out.println("****************" + s.getOrgName() + "****************" );
+		classRepo.deleteAll(s.getClasses());
+		orgRepo.delete(s);
+		//model.addAttribute("org", "");
+		redirect.addFlashAttribute("msg", "Organization successfully deleted.");
+		return "redirect:/profile";
+	}
+	
 	// ************** Classes Management **************
 	
 	@PostMapping("create-class")
@@ -245,7 +262,8 @@ public class UserController {
 	}
 	
 	@GetMapping("view-classStudents")
-	String studentsInClass(@RequestParam Long id, Model model) {
+	String studentsInClass(@RequestParam Long id, Model model, @SessionAttribute("org") Organization o) {
+		model.addAttribute("students", orgService.getOrgUsers(o.getId()));
 		return "class-page";
 	}
 	
@@ -297,9 +315,15 @@ public class UserController {
 		
 		
 		for(ClassAssociation i:availableClasses) {
+			LocalDateTime current = LocalDateTime.now();
 			time.setTimestamp(LocalDateTime.now());
 			time.setClassAssoc(i);
-			System.out.println(i.getId());
+			DateTimeFormatter dayform = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+			DateTimeFormatter timeform = DateTimeFormatter.ofPattern("HH:mm:ss");
+			String day = current.format(dayform);
+			String currenttime = current.format(timeform);
+			time.setTime(currenttime);
+			time.setDay(day);
 			timeRepo.save(time);
 		}
 		redirect.addFlashAttribute("msg", "You have successfully signed in!");
@@ -307,8 +331,39 @@ public class UserController {
 		
 	}
 	
+	
+	
 	// ************** Student Profile Management **************
 
+	@GetMapping("addToClass")
+	String addToClass(Model model, @SessionAttribute("org") Organization o){
+		model.addAttribute("classes", classRepo.getByOrg(o.getId()));
+		model.addAttribute("student", new User());
+		return "addToClass";
+	}
+	
+	@PostMapping("confirmAddClass")
+	String confirmAddclass(@ModelAttribute("student") User s, @SessionAttribute("stud")User main, RedirectAttributes redirect, Model model) {
+		Optional<User> latest = repo.findById(main.getId());
+		if(latest.isPresent()){
+			List<Class> newClasses = s.getClassesAssociated();
+			List<Class> currentClasses = main.getClassesAssociated();
+			
+			for(Class i:newClasses) {
+				if(currentClasses.contains(i)) {
+					redirect.addFlashAttribute("error", main.getFirstName() + " is already attending this class.");
+					return "redirect:/addToClass?id=" + String.valueOf(main.getId());
+				}
+			}
+			
+			main.getClassesAssociated().addAll(newClasses);
+			repo.save(main);
+			
+		}
+		
+		
+		return "redirect:/student-file?id=" + String.valueOf(main.getId());
+	}
 	
 	@GetMapping("student-file")
 	String studentFile(@RequestParam Long id, Model model) {
@@ -346,10 +401,10 @@ public class UserController {
 	}
 	
 	@GetMapping("deleteStudent")
-	String deleteStudent(Model model, @SessionAttribute("stud") User s) {
+	String deleteStudent(Model model, @SessionAttribute("stud") User s, RedirectAttributes redirect) {
 		repo.delete(s);
-		model.addAttribute("msg", "Student successfully deleted.");
-		return "profile";
+		redirect.addFlashAttribute("msg", "Student successfully deleted.");
+		return "redirect:/profile";
 	}
 	
 	// ************** Profile Management **************
@@ -363,6 +418,12 @@ public class UserController {
 	@PostMapping("orgEdit")
 	String orgEdit(RedirectAttributes redirect) {
 		return "redirect:/profile-settings";
+	}
+	
+	// ************** Test Pages **************
+	@GetMapping("testprofile")
+	String testProfile(){
+		return "testprofile";
 	}
 }
 

@@ -26,10 +26,33 @@ pageEncoding="UTF-8"%>
 	</div>
 	<br><br><br>
 	<div class="container">
-		<h4>Roster:</h4>
-		<c:forEach var="stud" items="${thisclass.students}">
-		<p>${stud.toString()}
+		<h4>Class Roster:</h4>
+		
+		<table class="table table-bordered">
+						<tr class="text-success">
+							<th>#</th>
+							<th>Name</th>
+							<th>Pin</th>
+							<th>Email</th>
+							<th>Classes</th>
+						</tr>
+						<tbody>
+		<c:forEach var="i" items="${thisclass.students}">
+			<tr>
+				<td>${students.indexOf(i)+1}</td>
+				<td><a href="student-file?id=${i.id}">${i.firstName} ${i.lastName}</a>
+				</td>
+				<td>${i.pin}</td>
+				<td>${i.email}</td>
+				<td>
+				<c:forEach var="j" items="${i.classesAssociated}">
+					${j.class_name}
+				</c:forEach>
+				</td>
+			</tr>
 		</c:forEach>
+		</tbody>
+		</table>
 	</div>
 	
 

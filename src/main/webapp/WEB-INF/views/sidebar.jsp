@@ -10,20 +10,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
-
-  <!-- Custom fonts for this template-->
-  <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="static/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -35,18 +22,42 @@ pageEncoding="UTF-8"%>
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">OnCue <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">OnCue <sup></sup></div>
       </a>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+      <c:choose>
+       <c:when test="${empty loggedInUser}">
+	      <li class="nav-item">
+	        <a class="nav-link" href="signup">Sign Up</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="login">Login</a>
+	      </li>
+	   </c:when>
+	   <c:otherwise>
+	      <li class="nav-item">
+	      <i class="fas fa-fw fa-tachometer-alt"></i>
+	        <a class="nav-link" href="profile">${loggedInUser.firstName}'s Profile</a>
+	      </li>
+	      <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          Organizations
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	        	<c:forEach var="i" items="${loggedInUser.organizations}">
+	          		<a class="dropdown-item" href="organization?id=${i.id}">${i.orgName}</a>
+	          	</c:forEach>
+	        </div>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="logout">Logout</a>
+	      </li>
+	      </c:otherwise>
+      </c:choose>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -140,22 +151,7 @@ pageEncoding="UTF-8"%>
 
     </ul>
     
-      <!-- Bootstrap core JavaScript-->
-  <script src="static/vendor/jquery/jquery.min.js"></script>
-  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="static/js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="static/vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="static/js/demo/chart-area-demo.js"></script>
-  <script src="static/js/demo/chart-pie-demo.js"></script>
 
 </body>
 </html>

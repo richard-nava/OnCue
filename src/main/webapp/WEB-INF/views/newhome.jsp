@@ -16,7 +16,6 @@ pageEncoding="UTF-8"%>
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -48,7 +47,7 @@ pageEncoding="UTF-8"%>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="testprofile">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -115,7 +114,7 @@ pageEncoding="UTF-8"%>
             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
+            <a class="collapse-item" href="testprofile">Test Profile</a>
             <a class="collapse-item" href="blank.html">Blank Page</a>
           </div>
         </div>

@@ -9,55 +9,85 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="static/styles.css" type="text/css">
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <title>OnCue Sign Up</title>
 </head>
-<body>
+<body class="signup-body">
 
-	<div>
+	
 	<jsp:include page="header.jsp"></jsp:include>
-	</div>
-	
-	
-	<div class="card center">
-			<div class="card-body">
-					<div>
-						<h2>Sign up!</h2>
-						<p>It's free. And always will be.
-						<small>...until I get like a ton of users. Then i might make you give me a dollar or something.</small>
-						
-						
-					</div>
-				${error}
-				<form:form action="signup" modelAttribute="user" method="post">
-				    <form:input type="hidden" path="id"/>
-					<div class="form-group">
-				   	 <label for="exampleFname">First Name</label>
-				  	  <form:input type="text" path="firstName" class="form-control" id="exampleFname" aria-describedby="emailHelp"/>  
-				    </div>
-				    <div class="form-group">
-					    <label for="exampleInputLname">Last Name</label>
-					    <form:input type="text" path="lastName" class="form-control" id="exampleLname" aria-describedby="emailHelp"/>
-					</div>
-				    <div class="form-group">
-				 	   <label for="exampleUser">Desired Username</label>
-				 	   <form:input type="text" path="username" class="form-control" id="exampleUsername" aria-describedby="emailHelp"/>
-				    </div>
-				    <div class="form-group">
-					     <label for="exampleInputEmail1">Email address</label>
-					    <form:input type="email" path="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-				 	   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone.</small>
-				    </div>
-				    <div class="form-group">
-					    <label for="exampleInputPassword1">Password</label>
-					    <form:input type="password" path="password"  class="form-control" id="exampleInputPassword1"/>
-			  	    </div>
-				  <button type="submit" class="btn btn-primary">Submit</button>
-				</form:form>
+
+
+	<div class="card card-signup center">
+		<div class="card-body">
+			<div>
+				<h2>Sign up!</h2>
+				<p>It's free. And always will be.</p>
+			</div>
+			${error}
+			<form:form action="signup" modelAttribute="user" method="post">
+				<form:input type="hidden" path="id" />
+				<div class="form-group">
+					<label for="exampleFname">First Name</label>
+					<form:input type="text" path="firstName" class="form-control"
+						id="exampleFname" aria-describedby="emailHelp" />
+				</div>
+				<div class="form-group">
+					<label for="exampleInputLname">Last Name</label>
+					<form:input type="text" path="lastName" class="form-control"
+						id="exampleLname" aria-describedby="emailHelp" />
+				</div>
+				<div class="form-group">
+					<label for="exampleUser">Desired Username</label>
+					<form:input type="text" path="username" class="form-control"
+						id="exampleUsername" aria-describedby="emailHelp" />
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Email address</label>
+					<form:input type="email" path="email" class="form-control"
+						id="exampleInputEmail1" aria-describedby="emailHelp" />
+					<small id="emailHelp" class="form-text text-muted">We'll
+						never share your email with anyone.</small>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Password</label>
+					<form:input type="password" path="password" class="form-control"
+						id="exampleInputPassword1" />
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form:form>
+			<hr>
+			<div class="text-center">
+				<a class="small" href="login">Already have an account?</a>
 			</div>
 		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+	<script src="static/vendor/jquery/jquery.min.js"></script>
+  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="static/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="static/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="static/js/demo/chart-area-demo.js"></script>
+  <script src="static/js/demo/chart-pie-demo.js"></script>
+  
 	
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

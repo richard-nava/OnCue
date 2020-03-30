@@ -19,6 +19,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="User")
@@ -34,6 +37,7 @@ public class User implements Serializable {
 	private List<Organization> organizations;
 	
 	@ManyToMany
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name="classesAssociated",joinColumns=@JoinColumn(name="user_id"),
 	inverseJoinColumns = @JoinColumn(name="class_id"))
 	private List<Class> classesAssociated;
