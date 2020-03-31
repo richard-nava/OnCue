@@ -23,7 +23,7 @@ public class SignInTime {
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	Long id;
+	long id;
 	
 	@Column
 	int pin;
@@ -46,11 +46,11 @@ public class SignInTime {
 
 	
 	// ******** Getters/Setters ********
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -88,9 +88,6 @@ public class SignInTime {
 
 
 	public void setDay(String day) {
-//		LocalDateTime focus = this.getTimestamp();
-//		DateTimeFormatter form = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-//		String formday = focus.format(form);
 		this.day = day;
 	}
 
@@ -101,14 +98,11 @@ public class SignInTime {
 
 
 	public void setTime(String time) {
-//		LocalDateTime focus = this.getTimestamp();
-//		DateTimeFormatter form = DateTimeFormatter.ofPattern("HH:mm:ss");
-//		String formatTime = focus.format(form);
 		this.time = time;
 	}
 
 
-	
+	// *************** Methods *************** 
 	public String getFormatDay() {
 		LocalDateTime focus = this.getTimestamp();
 		DateTimeFormatter form = DateTimeFormatter.ofPattern("MM-dd-yyyy");

@@ -21,39 +21,6 @@ pageEncoding="UTF-8"%>
 		<h4>${msg}</h4>
 	</div>
 	
-	<%-- <div class="container">
-		What would you like to do? 
-		<br>
-  		<div class="btn-group" role="group">
-		    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		      Classes
-		    </button>
-		    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-		    <c:forEach var="var" items="${classes}">
-		      <a class="dropdown-item" id="${var.class_id}" href="class-page?id=${var.class_id}">${var.class_name}</a>
-		      <!-- organization?id=${org.id} -->
-      		</c:forEach>
-      		    <div class="dropdown-divider"></div>
-      		<a class="dropdown-item" href="add-class" role="button">New Class</a>
-      		
-   			 </div>
-  		</div>
-  		 <div class="btn-group" role="group">
-  		
-  		<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		      Students
-		    </button>
-		    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-		    <a class="dropdown-item" href="view-students" role="button">View All</a>
-      		<a class="dropdown-item" href="add-student" role="button">Add Student</a>
-   			 </div>
-   			 </div>
-	  		<a class="btn btn-primary disabled" href="memberships" role="button">Memberships</a>	
-	  		<a class="btn btn-primary" href="organization-settings" role="button">${org.orgName} Settings</a>
-	  		<a class="btn btn-primary" href="org-signin" role="button">Sign-In Page </a>
-	  		<a class="btn btn-danger" href="delete-org?id=${org.id}" role="button">Delete ${org.orgName}</a>
-	</div> --%>
-	
 	<br>
 
 	<div class="container justify-content-center">
@@ -67,9 +34,7 @@ pageEncoding="UTF-8"%>
 					style="padding-top: 10px;">
 				<div class="card-body">
 					<h5 class="card-title">Classes</h5>
-					<!-- 
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p> -->
+					
 					<a id="btnGroupDrop1" type="button"
 						class="btn stretched-link dropdown-toggle" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"></a>
@@ -77,7 +42,6 @@ pageEncoding="UTF-8"%>
 						<c:forEach var="var" items="${classes}">
 							<a class="dropdown-item" id="${var.class_id}"
 								href="class-page?id=${var.class_id}">${var.class_name}</a>
-							<!-- organization?id=${org.id} -->
 						</c:forEach>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="add-class" role="button">New
@@ -94,9 +58,6 @@ pageEncoding="UTF-8"%>
 					alt="Students" style="padding-top: 10px;">
 				<div class="card-body">
 					<h5 class="card-title">Students</h5>
-					<!-- 
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p> -->
 					<a id="btnGroupDrop1" type="button"
 						class="btn stretched-link dropdown-toggle" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"></a>
@@ -121,9 +82,6 @@ pageEncoding="UTF-8"%>
 							alt="Sign In Page">
 						<div class="card-body">
 							<h5 class="card-title">Sign-In Page</h5>
-							<!-- 
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p> -->
 							<a href="org-signin" class="stretched-link"></a>
 						</div>
 					</div>
@@ -135,20 +93,18 @@ pageEncoding="UTF-8"%>
 							alt="Organization Settings">
 						<div class="card-body">
 							<h5 class="card-title">${org.orgName} Settings</h5>
-							<!-- 
-					<p class="card-text">Some quick example text to build on the
-						card title and make up the bulk of the card's content.</p> -->
 							<a href="organization-settings" class="stretched-link"></a>
 						</div>
 					</div>
 				</div>
+				<a href="delete-org" class="btn btn-warning">Delete</a>
 			</div>
 		
 
 
 
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 

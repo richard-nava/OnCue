@@ -17,7 +17,7 @@ public class Address {
 	@Id
 	@Column(name="address_id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long address_id; 
+	private long address_id; 
 	
 	@OneToOne
 	@JoinColumn(name="user_id", referencedColumnName = "user_id")
@@ -48,11 +48,11 @@ public class Address {
 		return user;
 	}
 
-	public Long getAddress_id() {
+	public long getAddress_id() {
 		return address_id;
 	}
 
-	public void setAddress_id(Long address_id) {
+	public void setAddress_id(long address_id) {
 		this.address_id = address_id;
 	}
 

@@ -38,12 +38,15 @@ public class ClassAssociation {
 	@OneToMany
 	private List<SignInTime> signIn;
 
+	// *************** Constructors *************** 
+	public ClassAssociation() {}
 
-	public Long getId() {
+	// *************** Getters/Setters *************** 
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

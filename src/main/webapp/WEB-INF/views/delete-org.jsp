@@ -24,8 +24,9 @@ pageEncoding="UTF-8"%>
 				<h5 class="card-title">Are you sure you want to delete ${org.orgName}</h5>
 				<h6 class="card-subtitle mb-2 text-muted">This will permanently delete all associated classes and students.</h6>
 				<hr>
-				<a href="deleteOrgConfirm" class="btn btn-danger">Delete ${org.orgName}</a> 
-				
+				<form action="deleteOrgConfirm" method="post">
+				<button type="submit" class="btn btn-danger">Delete ${org.orgName}</button>
+				</form>
 				<a href="organization?id=${org.id}" class="btn btn-info">On second thought...</a>
 				
 			</div>

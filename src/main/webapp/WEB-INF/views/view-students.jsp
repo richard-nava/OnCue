@@ -41,13 +41,15 @@ pageEncoding="UTF-8"%>
 				<td>${i.email}</td>
 				<td>
 				<c:forEach var="j" items="${i.classesAssociated}">
-					${j.class_name}
+					${j.class_name} | 
 				</c:forEach>
 				</td>
 			</tr>
 		</c:forEach>
 		</tbody>
 		</table>
+		
+		<a class="btn btn-primary" href="add-student">Add Student</a>
 	</div>
 	
 	<!---- JS Scripts ---->

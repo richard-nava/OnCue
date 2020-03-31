@@ -18,69 +18,75 @@ pageEncoding="UTF-8"%>
 
 	<!-- HEADER -->
 	<div>
-	<jsp:include page="header.jsp"></jsp:include>
+		<jsp:include page="header.jsp"></jsp:include>
 	</div>
 	<!-- END HEADER -->
 
-	
+
 	<div class="container">
 		<div class="row">
-		
-			<img class="main-image" src="static/img/DisplayLogo_Blue.png" alt="Card image cap" style="margin-top: 20px; margin-top:20px;">
-		</div>
-<!-- 
-			<div class="col-8 offset-2">
-				<div class="card center card-home"> style="width: 18rem;"
-					<img class="card-img-top" src="static/img/DisplayLogo_Blue.png" alt="Card image cap" style="margin-top: 20px">
-					<div class="card-body text-center">
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
-				</div>
-			</div> -->
 
-			<div class="container">
-		
+			<img class="main-image" src="static/img/DisplayLogo_Blue.png"
+				alt="Card image cap" style="margin-top: 20px; margin-top: 20px;">
+
+		</div>
+
+		<div class="row">
+			<div class="col-sm home-signup-btn">
+				<a href="signup" class="btn btn-outline-primary home-signup">Sign
+					Up for Free!</a>
+			</div>
+		</div>
+
+	</div>
+	<div class="container">
+
 		<div class="row" style="padding-top: 60px;">
-		
+
 			<div class="col-sm">
-				<div class="card card-info border-dark text-center" style="width: 18rem;">
-					<img class="center-image" src="https://img.icons8.com/metro/45/000000/check-all.png" />
+				<div class="card card-info border-dark text-center"
+					style="width: 18rem;">
+					<img class="center-image"
+						src="https://img.icons8.com/metro/45/000000/check-all.png" />
 					<div class="card-body">
 						<h5 class="card-title">Sign-In Tracker</h5>
-						<p class="card-text">Accurately records when attendee's for your classes or events sign in. 
-						View every sign in for any day, time, class, or event.</p>
-<!-- 						<a href="#" class="btn btn-primary">Go somewhere</a>
- -->					</div>
+						<p class="card-text">Accurately records when attendee's for
+							your classes or events sign in. View every sign in for any day,
+							time, class, or event.</p>
+		
+					</div>
 				</div>
 			</div>
-			
+
 			<div class="col-sm">
-				<div class="card card-info border-dark text-center" style="width: 18rem;">
-					<img  class="center-image" src="https://img.icons8.com/material-rounded/52/000000/user-menu-male.png" />
+				<div class="card card-info border-dark text-center"
+					style="width: 18rem;">
+					<img class="center-image"
+						src="https://img.icons8.com/material-rounded/52/000000/user-menu-male.png" />
 					<div class="card-body">
 						<h5 class="card-title">Profiles</h5>
-						<p class="card-text">Create, edit, and save info of your users. Keep a 
-						record of their sign-ins and monitor what they can sign in to.</p>
-						<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+						<p class="card-text">Create, edit, and save info of your
+							users. Keep a record of their sign-ins and monitor what they can
+							sign in to.</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm">
-				<div class="card card-info border-dark text-center" style="width: 18rem;">
-					<img class="center-image"src="https://img.icons8.com/material-rounded/48/000000/login-rounded-down.png" />
+				<div class="card card-info border-dark text-center"
+					style="width: 18rem;">
+					<img class="center-image"
+						src="https://img.icons8.com/material-rounded/48/000000/login-rounded-down.png" />
 					<div class="card-body">
 						<h5 class="card-title">Intuitive Interaction</h5>
-						<p class="card-text">Whether signing in to a class, managing an organization, or viewing class 
-						attendance, OnCue's workflow is intuitive and simple to use.
-						 </p>
+						<p class="card-text">Whether signing in to a class, managing
+							an organization, or viewing class attendance, OnCue's workflow is
+							intuitive and simple to use.</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		</div>
 	</div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

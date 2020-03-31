@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ import com.wma.wmamanager.entity.ClassAssociation;
 
 
 @Controller
-@SessionAttributes ({"loggedInUser","org","thisclass","stud"})
+@SessionAttributes ({"loggedInUser","org","thisclass","stud","orgs"})
 public class UserController {
 	
 	
@@ -144,6 +145,9 @@ public class UserController {
 	
 	
 	// ************** Organization Registration **************
+	
+	
+	
 	@GetMapping("new-organization")
 	String newOrg(Model model) {
 		model.addAttribute("org", new Organization());
@@ -168,8 +172,43 @@ public class UserController {
 	}
 	
 	// ************** Organization Management **************
+	
+	@GetMapping("organization-settings")
+	String orgSettings(Model model, @SessionAttribute("org") Organization o) {
+		model.addAttribute("updatedOrg", new Organization());
+		model.addAttribute("orgAddress", new Address());
+		model.addAttribute("classesOffered", classRepo.getByOrg(o.getId()));
+		return "organization-settings";
+	}
+	
+	
+	@PostMapping("updateOrgDetails")
+	String editOrg(@ModelAttribute("updatedOrg") Organization o, @SessionAttribute("org") Organization main, RedirectAttributes redirect, Model model) {
+		
+		Optional<Organization> latest = orgRepo.findById(main.getId());
+			if(latest.isPresent()){
+				latest.get().setOrgName(o.getOrgName());
+				latest.get().setDescription(o.getDescription());
+				orgRepo.save(latest.get());
+				model.addAttribute("org", latest.get());
+				redirect.addAttribute("id",latest.get().getId());
+			}
+		return "redirect:/organization-settings";
+	}
+	
+	@PostMapping("editOrgAddress")
+	String editOrgAddress(@ModelAttribute("orgAddress") Address ad, @SessionAttribute("org")Organization main, RedirectAttributes redirect, Model model) {
+		Organization focus = orgRepo.findById(main.getId()).get();
+		ad.setOrg(focus);
+		adRepo.save(ad);
+		model.addAttribute("org", focus);
+		redirect.addAttribute("id",focus.getId());
+		return "redirect:/organization-settings";
+	}
+	
+	
 	@GetMapping("organization")
-	String organization(@RequestParam Long id, Model model) {
+	String organization(@RequestParam long id, Model model) {
 		model.addAttribute("org", orgRepo.findById(id).get());
 		model.addAttribute("classes", classRepo.getByOrg(orgRepo.findById(id).get().getId()));
 		return "organization";
@@ -223,13 +262,12 @@ public class UserController {
 	String deleteOrg() {
 		return "delete-org";
 	}
-	
-	@GetMapping("deleteOrgConfirm")
+
+	@PostMapping("deleteOrgConfirm")
 	String deleteOrgConfirm(Model model, @SessionAttribute("org") Organization s, RedirectAttributes redirect) {
-		System.out.println("****************" + s.getOrgName() + "****************" );
-		classRepo.deleteAll(s.getClasses());
-		orgRepo.delete(s);
-		//model.addAttribute("org", "");
+		System.out.println("****************" + s.getOrgName() + s.getId() + "****************" );
+		orgService.deleteOrg(s);
+		model.addAttribute("org", "");
 		redirect.addFlashAttribute("msg", "Organization successfully deleted.");
 		return "redirect:/profile";
 	}

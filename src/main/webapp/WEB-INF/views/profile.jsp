@@ -15,17 +15,11 @@ pageEncoding="UTF-8"%>
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
-	
-	
-	
-	<%-- <div class="container">
-		<h2>Welcome, ${loggedInUser.firstName}!</h2>
-		${msg}
-	</div> --%>
-	<br>
-${msg}
+
+
 	<div class="container">
 	<h4>Your Organizations</h4>
+	${msg}
 	</div>
 	<div class="container" style="padding-top:10px;">
 		<div class="card-deck">
@@ -38,18 +32,17 @@ ${msg}
 						</div>
 				</div>
 			</c:forEach>
+			<div class="card border-warning" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">New Organization</h5>
+							<a href="new-organization" class="btn btn-outline-primary">Add</a>
+						</div>
+				</div>
+			
 		</div>
 	</div>
 	<br>
-	<div class="container">	
-  		<a class="btn btn-primary" href="profile-settings" role="button">Settings</a>
-	</div>
-
-
-
-
-
-
+	
 
 	<!-- JS Scripts -->
 <script src="content/js/jquery.min.js"></script>

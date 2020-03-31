@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wma.wmamanager.entity.User;
 import com.wma.wmamanager.entity.Class;
 import com.wma.wmamanager.entity.ClassAssociation;
+import com.wma.wmamanager.entity.Organization;
 import com.wma.wmamanager.entity.SignInTime;
 import com.wma.wmamanager.repository.ClassAssociationRepo;
 import com.wma.wmamanager.repository.ClassRepository;
@@ -56,5 +58,13 @@ public class OrgService {
 		return times;
 	}
 	
-
+	@Transactional
+	public void deleteOrg(Organization org) {
+		org.getClasses().forEach(item -> {
+			classRepo.deleteById(item.getClass_id());
+			classRepo.flush();
+		});
+		orgRepo.deleteById(org.getId());
+		orgRepo.flush();
+	}
 }

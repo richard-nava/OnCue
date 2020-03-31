@@ -22,8 +22,10 @@ pageEncoding="UTF-8"%>
 <!-- END HEADER -->
 
 <div class="container">
+	
 	<h2>${stud.firstName}'s Profile</h2>
-		<div class="row">
+		<div class="row stud-details">
+			
 			<div class="card col-sm">
 				<div class="card-body ">
 					<div>
@@ -106,11 +108,32 @@ pageEncoding="UTF-8"%>
 					</form:form>
 				</div>
 			</div>
+			
+			
 
 			<div class="container">
+				<div class="classes-enrolled">
+					<h4>Classes Enrolled</h4>
+					<table class="table table-bordered">
+						<tr class="text-success">
+						</tr>
+						<tbody>
+						<tr>
+							<c:forEach var="i" items="${stud.classesAssociated}">
+								
+									<%-- <javatime:parseLocalDateTime value="${i.timestamp}" pattern="MM-dd-yyyy" var="parsedDate" /> --%>
+									<td><a class="dropdown-item" id="${i.class_id}"
+								href="class-page?id=${i.class_id}">${i.class_name}</a></td>							
+							</c:forEach>
+							
+							</tr>
+						</tbody>
+					</table>
+				
+				</div>
 				<div class="sign-ins">
+	
 					<h4>Sign-In's</h4>
-
 					<table class="table table-bordered">
 						<tr class="text-success">
 							<th>Date</th>

@@ -23,4 +23,7 @@ public interface ClassRepository extends JpaRepository<Class, Long> {
 	@Query("FROM Class WHERE org_id=?1")
 	List<Class> getByOrg(Long id);
 	
+	//@Query("DELETE FROM Class WHERE class_id=?1")
+	//int deleteAllByClassId(long id);
+	
 }

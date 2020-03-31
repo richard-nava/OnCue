@@ -3,6 +3,11 @@ body{
 	
 }
 
+.home-signup-btn{
+	margin-left: 450px;
+	margin-top: 15px;
+}
+
 .center {
   margin: auto;
   width: 50%;
@@ -57,7 +62,11 @@ body{
 }
 
 .sign-ins{
-	margin-top:20px;
+	margin-top:50px;
+}
+
+.classes-enrolled{
+	margin-top:50px;
 }
 
 

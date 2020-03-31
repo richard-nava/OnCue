@@ -30,7 +30,7 @@ public class User implements Serializable {
 	@Id
 	@Column(name="user_id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private long id;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)	
@@ -73,14 +73,14 @@ public class User implements Serializable {
 	private String role;
 	
 	
-	// ********** Constructor **********
+	// ********** Constructors **********
 	
 	public User() {}
 	
 	
 	// ********** Getters/Setters **********
 	
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 	
@@ -111,7 +111,7 @@ public class User implements Serializable {
 	public void setPin(int pin) {
 		this.pin = pin;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getFirstName() {

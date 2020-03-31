@@ -3,6 +3,7 @@ package com.wma.wmamanager.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Class")
@@ -22,7 +26,7 @@ public class Class implements Serializable{
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long class_id;
+	private long class_id;
 	
 	@Column
 	private String class_name;
@@ -36,7 +40,8 @@ public class Class implements Serializable{
 	
 	private String description;
 	
-	@ManyToMany(mappedBy = "classesAssociated")
+	@ManyToMany(mappedBy = "classesAssociated", cascade = CascadeType.REMOVE)
+	//@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<User> students;
 	
 	
@@ -83,10 +88,10 @@ public class Class implements Serializable{
 	public void setOrg(Organization org) {
 		this.org = org;
 	}
-	public Long getClass_Id() {
+	public long getClass_Id() {
 		return class_id;
 	}
-	public void setClass_Id(Long class_id) {
+	public void setClass_Id(long class_id) {
 		this.class_id = class_id;
 	}
 	public String getName() {

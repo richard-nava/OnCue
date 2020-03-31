@@ -24,7 +24,65 @@ pageEncoding="UTF-8"%>
 		<h5>Description:</h5>
 		<h6>${thisclass.description}</h6>
 	</div>
-	<br><br><br>
+	<br>
+	<br>
+	<div class="container">
+		<h4>Days Available</h4>
+		<table class="table table-bordered">
+			<tr class="text-success">
+				<th>Monday</th>
+				<th>Tuesday</th>
+				<th>Wednesday</th>
+				<th>Thursday</th>
+				<th>Friday</th>
+				<th>Saturday</th>
+				<th>Sunday</th>
+				
+			</tr>
+			<tbody>
+				<tr>
+					<td>
+					<c:if test="${thisclass.monday == true}">
+						<img src="https://img.icons8.com/metro/26/000000/checkmark.png"/>
+					</c:if>
+					</td>
+					<td>
+					<c:if test="${thisclass.tuesday == true}">
+						<img src="https://img.icons8.com/metro/26/000000/checkmark.png"/>
+					</c:if>
+					</td>
+					<td>
+					<c:if test="${thisclass.wednesday == true}">
+						<img src="https://img.icons8.com/metro/26/000000/checkmark.png"/>
+					</c:if>
+					</td>
+					<td>
+					<c:if test="${thisclass.thursday == true}">
+						<img src="https://img.icons8.com/metro/26/000000/checkmark.png"/>
+					</c:if>
+					</td>
+					<td>
+					<c:if test="${thisclass.friday == true}">
+						<img src="https://img.icons8.com/metro/26/000000/checkmark.png"/>
+					</c:if>
+					</td>
+					<td>
+					<c:if test="${thisclass.saturday == true}">
+						<img src="https://img.icons8.com/metro/26/000000/checkmark.png"/>
+					</c:if>
+					</td>
+					<td>
+					<c:if test="${thisclass.sunday == true}">
+						<img src="https://img.icons8.com/metro/26/000000/checkmark.png"/>
+					</c:if>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<br><br>
 	<div class="container">
 		<h4>Class Roster:</h4>
 		

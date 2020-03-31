@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="static/styles.css" type="text/css">
 <style>
 	#nav-wrapper{
-		margin-bottom: 5%;
+		margin-bottom: 7%;
 	}
 </style>
 </head>
@@ -45,7 +45,7 @@ pageEncoding="UTF-8"%>
 	          Organizations
 	        </a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	        	<c:forEach var="i" items="${loggedInUser.organizations}">
+	        	<c:forEach var="i" items="${orgs}">
 	          		<a class="dropdown-item" href="organization?id=${i.id}">${i.orgName}</a>
 	          	</c:forEach>
 	        </div>

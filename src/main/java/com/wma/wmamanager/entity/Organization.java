@@ -17,6 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Organization")
@@ -24,19 +27,11 @@ public class Organization implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private long id;
 	
 	@Column(name="orgName")
 	private String orgName;
 	
-	@Column(name="street")
-	private String street;
-	
-	@Column(name="state")
-	private String state;
-	
-	@Column(name="city")
-	private String city;
 	
 	@OneToOne(mappedBy="org")
 	private Address address;
@@ -48,15 +43,18 @@ public class Organization implements Serializable {
 	private String description;
 	
 	@OneToMany(mappedBy = "org", fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
-	List<Class> classes;
+            cascade = CascadeType.ALL, orphanRemoval = true)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<Class> classes;
 	
 	
-
+	// *************** Constructors *************** 
 	public User getUser() {
 		return user;
 	}
 
+	
+	// *************** Getters/Setters *************** 
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -69,11 +67,11 @@ public class Organization implements Serializable {
 		this.description = description;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -85,29 +83,6 @@ public class Organization implements Serializable {
 		this.orgName = orgName;
 	}
 
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
 
 	public List<Class> getClasses() {
 		return classes;
@@ -117,13 +92,13 @@ public class Organization implements Serializable {
 		this.classes = classes;
 	}
 
-//	public List<Membership> getMemberships() {
-//		return memberships;
-//	}
-//
-//	public void setMemberships(List<Membership> memberships) {
-//		this.memberships = memberships;
-//	} 	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	
 	
 }
