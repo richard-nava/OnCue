@@ -19,10 +19,25 @@ pageEncoding="UTF-8"%>
 	<jsp:include page="header.jsp"></jsp:include>
 	<br>
 	<div class="container">
-		<h3>${thisclass.class_name} Class Page</h3>
-		<br>
-		<h5>Description:</h5>
+		<div class="container">
+			<div class="card org-card mb-3">
+				<img class="card-img-top org-img center"
+					src="static/img/org/${org.id}/profile/${org.image}"
+					alt="Card image cap">
+				<div class="card-body text-center">
+					<h4 class="card-title">${thisclass.class_name}</h4>
+					<p class="card-text text center">
+					<h5>Description:</h5>
 		<h6>${thisclass.description}</h6>
+						<small class="text-muted"></small>
+					</p>
+				</div>
+			</div>
+			
+		</div>
+	
+		
+		
 	</div>
 	<br>
 	<br>

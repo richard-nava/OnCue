@@ -73,6 +73,7 @@ public class User implements Serializable {
 	private String role;
 	
 	
+	
 	// ********** Constructors **********
 	
 	public User() {}

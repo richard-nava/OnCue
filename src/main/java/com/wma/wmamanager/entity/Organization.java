@@ -47,6 +47,8 @@ public class Organization implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Class> classes;
 	
+	private String image;
+	
 	
 	// *************** Constructors *************** 
 	public User getUser() {
@@ -98,6 +100,16 @@ public class Organization implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+
+	public String getImage() {
+		return image;
+	}
+
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

@@ -16,22 +16,29 @@ pageEncoding="UTF-8"%>
 
 	<jsp:include page="header.jsp"></jsp:include>
 
-	<div class="container">
-		<h3>${org.orgName} Manager Page</h3>
-		<h4>${msg}</h4>
+	<div class="container justify-content-center">
+		<div class="card org-card mb-3">
+			<img class="card-img-top org-img center" src="static/img/org/${org.id}/profile/${org.image}" alt="Card image cap">
+			<div class="card-body text-center">
+				<h4 class="card-title">${org.orgName} Manager</h4>
+				<p class="card-text">
+					<small class="text-muted"></small>
+				</p>
+			</div>
+		</div>
 	</div>
 	
 	<br>
 
-	<div class="container justify-content-center">
-		<div class="row" style="padding-top: 10px;">
-
-			<div class="card card-profile col-2 border-dark text-center"
+	<div class="container ">
+		<div class="row d-flex justify-content-center" style="padding-top: 10px;">
+			
+			<div class="card classes-card card-profile col-2 border-dark text-center"
 				style="width: 5rem;">
 
 				<img class="center-image"
 					src="https://img.icons8.com/ios/50/000000/class.png" alt="Classes"
-					style="padding-top: 10px;">
+					style="padding-top: 40px;">
 				<div class="card-body">
 					<h5 class="card-title">Classes</h5>
 					
@@ -50,12 +57,12 @@ pageEncoding="UTF-8"%>
 				</div>
 			</div>
 
-			<div class="card card-profile col-2 border-dark text-center"
+			<div class="card students-card card-profile col-2 border-dark text-center"
 				style="width: 5rem;">
 
 				<img class="center-image"
 					src="https://img.icons8.com/material/48/000000/user-menu-male--v1.png"
-					alt="Students" style="padding-top: 10px;">
+					alt="Students" style="padding-top: 40px;">
 				<div class="card-body">
 					<h5 class="card-title">Students</h5>
 					<a id="btnGroupDrop1" type="button"
@@ -72,13 +79,13 @@ pageEncoding="UTF-8"%>
 				</div>
 			</div>
 
-			</div>
-				<div class="row" style="padding-top: 10px;">
+			
 
-					<div class="card card-profile col-2 border-dark text-center"
+					<div class="card signin-card card-profile col-2 border-dark text-center"
 						style="width: 10rem;">
 						<img class="center-image"
-							src="https://img.icons8.com/dotty/60/000000/test-failed.png"style="padding-top: 15px;"
+							src="static/img/icons/BlackClock.png"
+							style="padding-top: 40px;"
 							alt="Sign In Page">
 						<div class="card-body">
 							<h5 class="card-title">Sign-In Page</h5>
@@ -86,19 +93,19 @@ pageEncoding="UTF-8"%>
 						</div>
 					</div>
 
-					<div class="card card-profile col-2 border-dark text-center"
+					<div class="card settings-card card-profile col-2 border-dark text-center"
 						style="width: 10rem;">
 						<img class="center-image"
-							src="https://img.icons8.com/material-outlined/48/000000/vertical-settings-mixer.png" style="padding-top: 15px;"
+							src="https://img.icons8.com/material-outlined/48/000000/vertical-settings-mixer.png" style="padding-top: 40px;"
 							alt="Organization Settings">
 						<div class="card-body">
-							<h5 class="card-title">${org.orgName} Settings</h5>
+							<h5 class="card-title">Settings</h5>
 							<a href="organization-settings" class="stretched-link"></a>
 						</div>
 					</div>
 				</div>
-				<a href="delete-org" class="btn btn-warning">Delete</a>
-			</div>
+				</div>
+		
 		
 
 

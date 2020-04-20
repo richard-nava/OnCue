@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -11,21 +11,36 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="static/styles.css" type="text/css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 
-<title>${stud.firstName}'s Profile</title>
+<title>${stud.firstName}'sProfile</title>
 </head>
 <body>
 
-<!-- HEADER -->
-<jsp:include page="header.jsp"></jsp:include>
-<!-- END HEADER -->
+	<!-- HEADER -->
+	<jsp:include page="header.jsp"></jsp:include>
+	<!-- END HEADER -->
 
-<div class="container">
-	
-	<h2>${stud.firstName}'s Profile</h2>
+	<div class="container">
+		<div class="container">
+			<div class="card org-card mb-3">
+				<img class="card-img-top org-img center"
+					src="static/img/org/${org.id}/profile/${org.image}"
+					alt="Card image cap">
+				<div class="card-body text-center">
+					<h4 class="card-title">${stud.firstName}'s Profile</h4>
+					<p class="card-text">
+						<small class="text-muted"></small>
+					</p>
+				</div>
+			</div>
+		</div>
+		<h2></h2>
 		<div class="row stud-details">
-			
+
 			<div class="card col-sm">
 				<div class="card-body ">
 					<div>
@@ -70,9 +85,6 @@ pageEncoding="UTF-8"%>
 				<div class="card-body">
 					<div>
 						<h2>Address</h2>
-
-
-
 					</div>
 					${error}
 					<form:form action="editStudAddress" modelAttribute="address"
@@ -108,8 +120,8 @@ pageEncoding="UTF-8"%>
 					</form:form>
 				</div>
 			</div>
-			
-			
+
+
 
 			<div class="container">
 				<div class="classes-enrolled">
@@ -118,21 +130,21 @@ pageEncoding="UTF-8"%>
 						<tr class="text-success">
 						</tr>
 						<tbody>
-						<tr>
-							<c:forEach var="i" items="${stud.classesAssociated}">
-								
+							<tr>
+								<c:forEach var="i" items="${stud.classesAssociated}">
+
 									<%-- <javatime:parseLocalDateTime value="${i.timestamp}" pattern="MM-dd-yyyy" var="parsedDate" /> --%>
 									<td><a class="dropdown-item" id="${i.class_id}"
-								href="class-page?id=${i.class_id}">${i.class_name}</a></td>							
-							</c:forEach>
-							
+										href="class-page?id=${i.class_id}">${i.class_name}</a></td>
+								</c:forEach>
+
 							</tr>
 						</tbody>
 					</table>
-				
+
 				</div>
 				<div class="sign-ins">
-	
+
 					<h4>Sign-In's</h4>
 					<table class="table table-bordered">
 						<tr class="text-success">
@@ -141,26 +153,24 @@ pageEncoding="UTF-8"%>
 							<th>Class</th>
 						</tr>
 						<tbody>
-						<tr>
-							<c:forEach var="i" items="${times}">
+						<c:forEach var="i" items="${times}">
+							<tr>
 								
-									<%-- <javatime:parseLocalDateTime value="${i.timestamp}" pattern="MM-dd-yyyy" var="parsedDate" /> --%>
 									<td>${i.day}</td>
 									<td>${i.time}</td>
 									<td>${i.classAssoc.classTaken.class_name}</td>
 								
-							</c:forEach>
-							
+
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 
 				<div class="container">
 					<a class="btn btn-danger" href="deleteStudent" role="button">Delete
-						${stud.firstName}</a>
-					<a class="btn btn-primary" href="addToClass" role="button">Add
-						${stud.firstName} to Class</a>
+						${stud.firstName}</a> <a class="btn btn-primary" href="addToClass"
+						role="button">Add ${stud.firstName} to Class</a>
 				</div>
 			</div>
 		</div>
@@ -169,17 +179,25 @@ pageEncoding="UTF-8"%>
 
 
 
-<script src="content/js/jquery.min.js"></script>
-<script src="content/js/bootstrap.min.js"></script>
-<script>
+	<script src="content/js/jquery.min.js"></script>
+	<script src="content/js/bootstrap.min.js"></script>
+	<script>
     $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="static/js/calendar.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<script src="static/js/calendar.js"></script>
 
 </body>
 </html>

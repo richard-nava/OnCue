@@ -14,8 +14,31 @@ pageEncoding="UTF-8"%>
 
 <title>Multiple Sign in</title>
 </head>
-<body>
+<body class="signin-body">
 
+<div class="container signin-card-main">
+		<div class="card shadow-lg p-3 mb-5 center" style="width: 20rem;">
+		  <img class="card-img-top orgsignin-img center"
+					src="static/img/org/${org.id}/profile/${org.image}"
+					alt="Card image cap">
+		  <div class="card-body">
+		    <h5 class="card-title">Welcome to ${org.orgName}</h5>
+		    <h6>${msg} ${error}</h6>
+		    	<form:form action="orgSignInMulti" modelAttribute="student" method="post">
+					<div class="form-group">
+					<form:input path="pin" value="${stud.pin}"/>
+				   	 <c:forEach var="i" items="${classesAvailable})">
+				   	 <label for="pin">Choose Class:</label>
+				  	 <form:checkbox path="class" class="form-control" id="${i.class_id}" aria-describedby="emailHelp"/>${i.class_name} 
+				    </c:forEach>
+				    </div>
+				  <form:button type="submit" class="btn btn-primary">Sign In</form:button>
+				</form:form>
+		  </div>
+		</div>
+	</div>
+
+<jsp:include page="footer.jsp"/>
 
 
 <script src="content/js/jquery.min.js"></script>

@@ -8,6 +8,53 @@ body{
 	margin-top: 15px;
 }
 
+.signin-body{
+	background-color: #2C99D9;
+}
+.signin-card-main{
+	margin-top: 100px;
+}
+.org-img{
+	max-width: 200px;
+	max-height:200px;
+	padding-bottom:15px;
+}
+
+.orgsignin-img{
+	max-width: 100%;
+	height: auto;
+}
+
+.org-card{
+	background-color: transparent;
+	border: transparent;
+}
+
+.org-options{
+	margin-left: 350px;
+}
+
+.settings-card{
+	background-color: #59D2FE;
+}
+
+.classes-card{
+	background-color: #59D2FE;
+}
+
+.students-card{
+	background-color: #59D2FE;
+}
+
+.signin-card{
+	background-color: #59D2FE;
+}
+
+.add-image{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
 .center {
   margin: auto;
   width: 50%;
@@ -21,10 +68,7 @@ body{
   
 }
 
-/* .custom-align{
-	margin-left: 75px;
-	margin-top: 5px;
-} */
+
 
 .card-profile{
 	margin-left: 20px;
@@ -74,6 +118,11 @@ body{
 	/* background-color: #484D6D; */
 	background-color: #004E64;
 	margin-bottom: 15px;
+}
+
+.navbar-footer{
+	background-color: #004E64;
+	
 }
 
 .header{

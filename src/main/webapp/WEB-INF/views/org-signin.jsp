@@ -14,25 +14,28 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <title>${org.orgName} Sign-In</title>
 </head>
-<body>
+<body class="signin-body">
 	
-	<div class="container ">
-		<div class="card center" style="width: 20rem;">
+	<div class="container signin-card-main">
+		<div class="card shadow-lg p-3 mb-5 center" style="width: 20rem;">
+		  <img class="card-img-top center-image"
+					src="static/img/org/${org.id}/profile/${org.image}"
+					alt="Card image cap">
 		  <div class="card-body">
 		    <h5 class="card-title">Welcome to ${org.orgName}</h5>
 		    <h6>${msg} ${error}</h6>
 		    	<form:form action="orgSignIn" modelAttribute="student" method="post">
 					<div class="form-group">
-				   	 <label for="pin">Student Pin</label>
+				   	 <label for="pin">Enter Pin</label>
 				  	 <form:input type="number" path="pin" class="form-control" id="pin" aria-describedby="emailHelp"/>  
 				    </div>
-				  <form:button type="submit" class="btn btn-primary">Submit</form:button>
+				  <form:button type="submit" class="btn btn-primary">Sign In</form:button>
 				</form:form>
 		  </div>
 		</div>
 	</div>
 
-
+<jsp:include page="footer.jsp"/>
 
 <script src="content/js/jquery.min.js"></script>
 <script src="content/js/bootstrap.min.js"></script>

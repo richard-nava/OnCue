@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.wma.wmamanager.entity.Organization;
@@ -32,6 +35,7 @@ import com.wma.wmamanager.repository.ClassRepository;
 import com.wma.wmamanager.repository.OrgRepository;
 import com.wma.wmamanager.repository.TimestampRepository;
 import com.wma.wmamanager.repository.UserRepository;
+import com.wma.wmamanager.Utils.WebUtils;
 import com.wma.wmamanager.Services.OrgService;
 import com.wma.wmamanager.entity.Address;
 import com.wma.wmamanager.entity.Class;
@@ -64,6 +68,9 @@ public class UserController {
 	
 	@Autowired
 	private AddressRepository adRepo;
+	
+	@Autowired
+	private WebUtils webUtils;
 	
 	
 	// ************** General Mapping **************
@@ -218,6 +225,7 @@ public class UserController {
 	String thisOrg(@SessionAttribute("org") Organization org, Model model) {
 		List<Class> stuff=  classRepo.getByOrg(org.getId());
 		model.addAttribute("classes", stuff);
+		model.addAttribute("org", orgRepo.findById(org.getId()).get());
 		return "organization";
 	}
 	
@@ -255,7 +263,7 @@ public class UserController {
 		repo.save(student);
 		ClassAssociation i = new ClassAssociation();
 		redirect.addFlashAttribute("msg", "Student Registration Successful!");		
-		return "organization";
+		return "redirect:/thisOrg";
 	}
 	
 	@GetMapping("delete-org")
@@ -338,7 +346,7 @@ public class UserController {
 							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.THURSDAY) && association.getClassTaken().getThursday()) ||
 							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.FRIDAY) && association.getClassTaken().getFriday()) ||
 							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY) && association.getClassTaken().getSaturday()) ||
-							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.WEDNESDAY) && association.getClassTaken().getSunday());
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.SUNDAY) && association.getClassTaken().getSunday());
 				}).collect(Collectors.toList());
 		
 		if(availableClasses.size()==0) {
@@ -347,8 +355,11 @@ public class UserController {
 		}
 		
 		if(availableClasses.size()>1) {
+			model.addAttribute("stud", repo.pinSignIn(time.getPin()).get());
+			model.addAttribute("attending", new Class());
 			return "org-signin-multi";
 		}
+		
 		
 		
 		
@@ -364,11 +375,37 @@ public class UserController {
 			time.setDay(day);
 			timeRepo.save(time);
 		}
-		redirect.addFlashAttribute("msg", "You have successfully signed in!");
+		redirect.addFlashAttribute("msg", "You have successfully signed in, " + focus.get().getFirstName() + "!");
+		
 		return "redirect:/org-signin";
 		
 	}
 	
+	@GetMapping("org-signin-multi")
+	String multiSignIn(Model model, @SessionAttribute("stud") User s, RedirectAttributes redirect) {
+		Optional<User> focus = repo.pinSignIn(s.getPin());
+		List<ClassAssociation> focusClasses = assoRepo.findByStudId(focus.get().getId());
+		List<ClassAssociation> availableClasses = focusClasses
+				.stream().filter(association -> {
+					return (LocalDate.now().getDayOfWeek().equals(DayOfWeek.MONDAY) && association.getClassTaken().getMonday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.TUESDAY) && association.getClassTaken().getTuesday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.WEDNESDAY) && association.getClassTaken().getWednesday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.THURSDAY) && association.getClassTaken().getThursday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.FRIDAY) && association.getClassTaken().getFriday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY) && association.getClassTaken().getSaturday()) ||
+							(LocalDate.now().getDayOfWeek().equals(DayOfWeek.SUNDAY) && association.getClassTaken().getSunday());
+				}).collect(Collectors.toList());
+		
+		model.addAttribute("availableClasses", availableClasses);
+		model.addAttribute("student", new SignInTime());
+		return "org-signin-multi";
+	}
+	
+	@PostMapping("orgSignInMulit")
+	String multiSignInForm(Model model, @ModelAttribute("student") SignInTime time, RedirectAttributes redirect) {
+		
+		return "redirect:/org-signin";
+	}
 	
 	
 	// ************** Student Profile Management **************
@@ -462,6 +499,38 @@ public class UserController {
 	@GetMapping("testprofile")
 	String testProfile(){
 		return "testprofile";
+	}
+	
+	@PostMapping("/addimages")
+	public String add(@RequestParam("file") MultipartFile file, 
+			@RequestParam Long id, Model model) {
+    	    
+		Pattern ext = Pattern.compile("([^\\s]+(\\.(?i)(png|jpg))$)");
+		try {
+			
+			  if(file != null && file.isEmpty()){
+				  model.addAttribute("error", "Error No file Selected "); 
+			      return "redirect:thisOrg"; 
+			      } 
+			  if(file.getSize()>1073741824){
+				  model.addAttribute("error","File size "+file.getSize()+"KB excceds max allowed, try another photo ");
+				  return "redirect:thisOrg"; 
+			      } 
+			  Matcher mtch = ext.matcher(file.getOriginalFilename());
+			  
+			  if (!mtch.matches()) {
+				  model.addAttribute("error", "Invalid Image type "); 
+			      return "redirect:thisOrg";			  
+			  }
+			 		
+			//save image
+			webUtils.addProfilePhoto(file, id, "org");
+			model.addAttribute("msg", "Upload success "+ file.getSize()+" KB");
+			model.addAttribute("_profile", "active");
+		} catch (Exception e) {
+			//e.printStackTrace);
+		}
+		return "redirect:thisOrg";
 	}
 }
 

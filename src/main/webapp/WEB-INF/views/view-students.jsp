@@ -20,7 +20,19 @@ pageEncoding="UTF-8"%>
 	<!---- END HEADER ---->
 	<br><br>
 	<div class="container">
-		<h3>${org.orgName} Students</h3>
+		<div class="container">
+			<div class="card org-card mb-3">
+				<img class="card-img-top org-img center"
+					src="static/img/org/${org.id}/profile/${org.image}"
+					alt="Card image cap">
+				<div class="card-body text-center">
+					<h4 class="card-title">${org.orgName}'s Students</h4>
+					<p class="card-text">
+						<small class="text-muted"></small>
+					</p>
+				</div>
+			</div>
+		</div>
 		<br>
 		   <table class="table table-bordered">
 						<tr class="text-success">
